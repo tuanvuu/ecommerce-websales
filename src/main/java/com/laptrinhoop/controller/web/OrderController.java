@@ -1,8 +1,18 @@
 package com.laptrinhoop.controller.web;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.laptrinhoop.dto.PaymentRequest;
+import com.laptrinhoop.dto.UrlGeneratorResponse;
+import com.laptrinhoop.entity.Partner;
+import com.laptrinhoop.enums.PartnerCode;
+import com.laptrinhoop.service.*;
+import com.laptrinhoop.utils.IdGenerator;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.laptrinhoop.entity.Order;
-import com.laptrinhoop.service.IOrderSevice;
-import com.laptrinhoop.service.IRabbitmqService;
 import com.laptrinhoop.service.impl.CartService;
 
+import javax.transaction.Transactional;
+
 @Controller
+@Slf4j
 public class OrderController {
 
 	@Autowired
@@ -28,6 +39,17 @@ public class OrderController {
 
 	@Autowired
 	private IOrderSevice orderService;
+
+	@Autowired
+	private IPaymentService paymentService;
+
+	@Autowired
+	private IMailService mailService;
+
+	@Autowired
+	private IAccountService accountService;
+
+
 
 //	@Autowired
 //	private IRabbitmqService rabbit;
@@ -41,13 +63,31 @@ public class OrderController {
 		model.addAttribute("cart", cartService);
 		Order order = orderService.createOrder();
 		model.addAttribute("order", order);
+		model.addAttribute("partners",paymentService.findAll());
 		return "order/checkout";
 	}
 
 	@PostMapping("/order/checkout")
+	@Transactional
 	public String checkOut(Model model, @Validated @ModelAttribute("order") Order or) {
+		Partner partner = paymentService.findByCode(or.getPartner().getCode());
+		or.setPartner(partner);
 		 orderService.addOrderAndOrderDetail(or, cartService);
-	//	rabbit.converToSendRabbit(or, cartService);
+		 if(or.getPartner().getCode().equals(PartnerCode.VNPAY.name())){
+			 PaymentRequest paymentRequest = PaymentRequest.builder()
+					 .username(or.getCustomer().getId())
+					 .partnerCode(PartnerCode.VNPAY)
+					 .description(Objects.isNull(or.getDescription()) || or.getDescription().length() == 0 ? "Thanh toán đơn hàng" : or.getDescription())
+					 .currencyCode("VND")
+					 .locale("vi")
+					 .amount(new BigDecimal(or.getAmount()))
+					 .redirectUrl(IdGenerator.getRedirectProxy(partner.getRedirectProxy()))
+					 .build();
+			 UrlGeneratorResponse generateUrl =  paymentService.generateLink(paymentRequest);
+			 log.info("[OrderController] checkOut -- generate link url payment:{}",generateUrl.getUrl());
+			 cartService.clear();
+			 return "redirect:" + generateUrl.getUrl();
+		 }
 		cartService.clear();
 		return "redirect:/home/index";
 	}

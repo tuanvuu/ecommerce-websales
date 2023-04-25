@@ -51,6 +51,7 @@ public class CategoryAdminController {
 		if (errors.hasErrors()) {
 			model.addAttribute("message", "Vui lòng không bỏ trống bên dưới");
 			model.addAttribute("list", categoryService.findAll());
+			model.addAttribute("list",categoryService.findAll());
 			return "admin/category/index";
 		}
 		categoryService.update(form);

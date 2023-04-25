@@ -15,7 +15,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
 	/*
 	 * chắn người dùng khi chưa đăng nhập req tới các url ..
 	 * - Path1 : bao gồm url mapping tới trang người dùng
-	 * -Path2 : bao gồm url mapping tới trang quản trị, 
+	 * -Path2 : bao gồm url mapping tới trang quản trị,
+	 * - Path3 : bao gom cac url mapping toi trang quz
 	 * **/
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {

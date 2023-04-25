@@ -28,8 +28,8 @@
 				<div class="form-group col-sm-6">
 					<label>Tổng giá</label>
 					<div class="form-control">
-						<f:formatNumber value="${order.amount}" pattern="#,###.00" />
-						USD
+						<f:formatNumber value="${order.amount}" pattern="#,###" />
+						VND
 					</div>
 				</div>
 			</div>

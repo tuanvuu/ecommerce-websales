@@ -51,7 +51,7 @@ public class GeneraDAO<L, K> implements IGeneralDAO<L, K> {
 
 
 	@SuppressWarnings({ "unchecked" })
-	private Class<L> getEntityClass() {
+	protected Class<L> getEntityClass() {
 		ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
 		return  (Class<L>) type.getActualTypeArguments()[0];
 	}

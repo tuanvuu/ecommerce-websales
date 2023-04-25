@@ -20,10 +20,10 @@ import org.springframework.context.ApplicationContext;
         DataSourceTransactionManagerAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class
 })
-public class SpringBootWebsales2020Application {
+public class WebSalesApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context = SpringApplication.run(SpringBootWebsales2020Application.class, args);
+        ApplicationContext context = SpringApplication.run(WebSalesApplication.class, args);
     }
 
 }

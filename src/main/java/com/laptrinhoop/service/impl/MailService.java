@@ -4,17 +4,36 @@ import java.io.File;
 
 import javax.mail.internet.MimeMessage;
 
+import com.laptrinhoop.agent.SendGripAgent;
+import com.laptrinhoop.converter.Jksonizer;
+import com.laptrinhoop.dto.SendGripDto;
+import com.laptrinhoop.properties.TemplateProperties;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.ResponseBody;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.laptrinhoop.service.IMailService;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
+import retrofit2.Call;
+import retrofit2.Response;
 
 @Service
+@Slf4j
 public class MailService implements IMailService {
 	@Autowired
 	JavaMailSender sender;
+
+	@Autowired
+	private SendGripAgent sendGripAgent;
+
+	@Autowired
+	private TemplateProperties templateProperties;
 
 	/**
 	 * JavaMailSender interface con cua MailSender , hỗ trợ tin nhắn kiểu MiME
@@ -74,4 +93,33 @@ public class MailService implements IMailService {
 		}
 	}
 
+	@Override
+	public SendGripDto.SendGripResponse send(SendGripDto.SendGripRequest requestBody) {
+		log.info("[SENDGRIP] request body: {}",Jksonizer.toJson(requestBody));
+		Call<ResponseBody> data = sendGripAgent.sendEmail(
+				new StringBuilder("Bearer ")
+				.append(templateProperties.getApiKey())
+				.toString(),
+				requestBody
+		);
+		try{
+			Response<ResponseBody> excuseData =  data.execute();
+			if (excuseData.code() == HttpStatus.SC_OK || excuseData.code() == HttpStatus.SC_ACCEPTED) {
+				log.info("[End] sendMailWithTemplate success");
+				return SendGripDto.SendGripResponse.successWith();
+			}
+			String body = ObjectUtils.isEmpty(excuseData.errorBody()) ? null : excuseData.errorBody().toString();
+			log.info("[End] sendMailWithTemplate fail:{}");
+			return SendGripDto.SendGripResponse.failedWith(excuseData.code(), body);
+		} catch (ResourceAccessException e) {
+			log.error("Error request timeout sendMailWithTemplate", e);
+			return SendGripDto.SendGripResponse.failedWith(HttpStatus.SC_REQUEST_TIMEOUT, e.getMessage());
+		} catch (HttpClientErrorException e) {
+			log.error("Error with client sendMailWithTemplate", e);
+			return SendGripDto.SendGripResponse.failedWith(e.getStatusCode().value(), e.getMessage());
+		} catch (Exception e) {
+			log.error("Error not handle sendMailWithTemplate", e);
+			return SendGripDto.SendGripResponse.failedWith(HttpStatus.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+		}
+	}
 }

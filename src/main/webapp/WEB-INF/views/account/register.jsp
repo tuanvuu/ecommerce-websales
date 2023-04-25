@@ -36,6 +36,20 @@
 			</div>
 
 			<div class="form-group">
+				<label>Số điện thoại</label>
+				<form:input path="phoneNumber" class="form-control"  required="required"/>
+				<form:errors path="phoneNumber"></form:errors>
+			</div>
+
+
+
+			<div class="form-group">
+				<label>Địa chỉ</label>
+				<form:input path="address" class="form-control"  required="required"/>
+				<form:errors path="address"></form:errors>
+			</div>
+
+			<div class="form-group">
 				<label>Hình đại diện</label> <input type="file" name="photo_file"
 					class="form-control" />
 				<form:hidden path="photo" />

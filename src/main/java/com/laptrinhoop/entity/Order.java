@@ -35,11 +35,17 @@ public class Order {
 	String description;
 	Integer status;
 
-	
+	@ManyToOne
+	@JoinColumn(name = "partnerId")
+	Partner partner;
 
+	public Partner getPartner() {
+		return partner;
+	}
 
-
-
+	public void setPartner(Partner partner) {
+		this.partner = partner;
+	}
 
 	public Integer getStatus() {
 		return status;

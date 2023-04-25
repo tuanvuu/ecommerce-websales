@@ -1,0 +1,33 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+server:
+  port: 8081
+service-discovery:
+  sendgrip:
+    base-url: https://api.sendgrid.com/v3/
+    api-key: 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
+    from-address: websale-support@yopmail.com
+    template-id:
+      create-account: d-0962e88f7a8f48038aae64d8fb83bea0
+      forgot-password: d-a42a781dfdfa4b638825cc830421e4e9
+      reset-password: d-a42a781dfdfa4b638825cc830421e4e9
+      online-payment: d-614cda434d8d4e629b210188251644fc
+      confirm-order: d-5060ccffff1146208e81e70d552855b6
+
+
+
+integration:
+  vnpay:
+    host: https://sandbox.vnpayment.vn/
+    secretKey: JWCRDNIWFHZMEWCENWULRYCGZHXLIZFP
+    generateURI: paymentv2/vpcpay.html
+    merchantCode: NIE1ALRZ
+    redirectProxy: http://localhost:8081/
+  client:
+    app:
+      host: ${CLIENT_HOST:}
+      context-patch-redirect: ${CLIENT_CONTEXT_PATCH_REDIRECT:http://localhost:8080/}
+

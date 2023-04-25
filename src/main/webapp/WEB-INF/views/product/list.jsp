@@ -11,7 +11,7 @@
 			</div>
 			<div class="panel-footer">
 				<div class="row">
-					<div class="col-xs-3">${p.unitPrice}</div>
+					<div class="col-xs-3"><f:formatNumber value="${p.unitPrice}" pattern="#,###" /></div>
 					<div class="col-xs-9 text-right">
 						<%@include file="btn-prod.jsp" %>
 					</div>
