@@ -73,9 +73,9 @@ public class AccountController {
                 return "redirect:/account/change";
             }
             if (securityUri != null) {
-                return "redirect:" + securityUri;
+                return "redirect:/otp/generate?userId=" + http.encode(username);
             } else {
-                return "redirect:/home/index";
+                return "redirect:/otp/generate?userId=" + http.encode(username);
             }
         }
         return "account/login";

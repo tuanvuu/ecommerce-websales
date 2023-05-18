@@ -8,14 +8,15 @@ server:
 service-discovery:
   sendgrip:
     base-url: https://api.sendgrid.com/v3/
-    api-key: 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
-    from-address: websale-support@yopmail.com
+    api-key: csLmL7Hwo1UhFTOKzFu5NmN/W6DHNlcLzzoLGUAgKk9YC+TBJneF5uDNPj/PRs2hPzcCL1dopE9z2+WsDPDfQXDFN7DmC/uc9hyWAZLx8wWc5fxKGyJ+1lKt48sgmREtB1DeUcT0BO7m7W8M7d0AnRI=
+    from-address: cskh-noreply-support@yopmail.com
+    secret-key: websales
     template-id:
-      create-account: d-0962e88f7a8f48038aae64d8fb83bea0
-      forgot-password: d-a42a781dfdfa4b638825cc830421e4e9
+      create-account: d-b9a89b30e37f4b8baaa79b46590ec30d
+      forgot-password: d-895853dafd1447c2a98c506c4b4a4b12
       reset-password: d-a42a781dfdfa4b638825cc830421e4e9
-      online-payment: d-614cda434d8d4e629b210188251644fc
-      confirm-order: d-5060ccffff1146208e81e70d552855b6
+      online-payment: d-074320a7b85545e7b08012a40d6bb215
+      confirm-order: d-7ddcce933d174a259ee848f521af818e
 
 
 

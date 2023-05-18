@@ -8,6 +8,8 @@ import com.laptrinhoop.agent.SendGripAgent;
 import com.laptrinhoop.converter.Jksonizer;
 import com.laptrinhoop.dto.SendGripDto;
 import com.laptrinhoop.properties.TemplateProperties;
+import com.laptrinhoop.utils.DataEncryptor;
+import com.laptrinhoop.utils.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.ResponseBody;
 import org.apache.http.HttpStatus;
@@ -98,7 +100,7 @@ public class MailService implements IMailService {
 		log.info("[SENDGRIP] request body: {}",Jksonizer.toJson(requestBody));
 		Call<ResponseBody> data = sendGripAgent.sendEmail(
 				new StringBuilder("Bearer ")
-				.append(templateProperties.getApiKey())
+				.append(DataEncryptor.decrypt(templateProperties.getApiKey(),templateProperties.getSecretKey()))
 				.toString(),
 				requestBody
 		);

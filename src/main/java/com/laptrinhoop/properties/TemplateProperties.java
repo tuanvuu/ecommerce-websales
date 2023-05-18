@@ -14,6 +14,7 @@ public class TemplateProperties {
     private String fromAddress;
     private String apiKey;
     private String baseUrl;
+    private String secretKey;
     private final Template templateId = new Template();
 
     @Data

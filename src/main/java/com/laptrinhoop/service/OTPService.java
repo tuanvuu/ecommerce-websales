@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class OTPService {
-    private static final Integer EXPIRE_MINS = 12;
+    private static final Integer EXPIRE_MINS = 60 * 60 *2;
     private static LoadingCache<String, Integer> otpCache;
 
     public  OTPService() {
@@ -51,7 +51,7 @@ public class OTPService {
         System.out.println(S.getOtp("test"));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(6100);
             System.out.println(S.getOtp("test"));
         } catch (InterruptedException e) {
             e.printStackTrace();

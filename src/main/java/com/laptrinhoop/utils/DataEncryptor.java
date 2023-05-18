@@ -111,4 +111,8 @@ public class DataEncryptor {
             return cText;
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println(encrypt("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","websales"));
+    }
 }
