@@ -23,9 +23,9 @@ service-discovery:
 integration:
   vnpay:
     host: https://sandbox.vnpayment.vn/
-    secretKey: JWCRDNIWFHZMEWCENWULRYCGZHXLIZFP
+    secretKey: GSNJWCTLEKNTPXSAUBWMMGKXBCGUDLSZ #JWCRDNIWFHZMEWCENWULRYCGZHXLIZFP
     generateURI: paymentv2/vpcpay.html
-    merchantCode: NIE1ALRZ
+    merchantCode: 6UOCS96N #NIE1ALRZ
     redirectProxy: http://localhost:8081/
   client:
     app:

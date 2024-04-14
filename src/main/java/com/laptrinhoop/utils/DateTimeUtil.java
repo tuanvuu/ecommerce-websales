@@ -29,6 +29,11 @@ public class DateTimeUtil {
         return localDateTimeToString(LocalDateTime.now(), dateTimeFormat);
     }
 
+    public static String expireTimeInMinutes(int minutes, String dateTimeFormat) {
+        LocalDateTime expireTime = LocalDateTime.now().plusMinutes(minutes);
+        return localDateTimeToString(expireTime, dateTimeFormat);
+    }
+
     public static String localDateTimeToString(LocalDateTime localDateTime) {
         return localDateTimeToString(localDateTime, DEFAULT_DATE_TIME_FORMAT);
     }

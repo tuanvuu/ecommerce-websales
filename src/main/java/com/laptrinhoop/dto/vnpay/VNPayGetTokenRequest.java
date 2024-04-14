@@ -13,19 +13,61 @@ import lombok.experimental.SuperBuilder;
 import javax.validation.constraints.NotNull;
 
 @SuperBuilder(builderMethodName = "getTokenRequestBuilder")
-public class VNPayGetTokenRequest extends VNPayBaseRequest {
+public class VNPayGetTokenRequest {
 
     @JsonProperty("vnp_Amount")
     @NotNull
     String amount;
+
+    @JsonProperty("vnp_Command")
+    @NotNull
+    String command;
+
+    @JsonProperty("vnp_CreateDate")
+    @NotNull
+    String createDate;
+
     @JsonProperty("vnp_CurrCode")
     @NotNull
     String currCode;
+
+    @JsonProperty("vnp_ExpireDate")
+    @NotNull
+    String expireDate;
+
+    @JsonProperty("vnp_IpAddr")
+    @NotNull
+    String ipAddress;
+
     @JsonProperty("vnp_Locale")
     String locale;
+
+    @JsonProperty("vnp_OrderInfo")
+    @NotNull
+    String orderInfo;
+
+    @JsonProperty("vnp_OrderType")
+    @NotNull
+    String orderType;
+
+
     @JsonProperty("vnp_ReturnUrl")
     @NotNull
     String returnUrl;
+
+    @JsonProperty("vnp_TmnCode")
+    @NotNull
+    String tmdCode;
+
+    @JsonProperty("vnp_TxnRef")
+    @NotNull
+    String txnRef;
+
+
+    @JsonProperty("vnp_Version")
+    @NotNull
+    String version;
+
 
     public static VNPayGetTokenRequest from(Partner partner, PaymentRequest paymentRequest) {
         return VNPayGetTokenRequest
@@ -34,7 +76,9 @@ public class VNPayGetTokenRequest extends VNPayBaseRequest {
                 .command(VNPayCommand.PAY.getVnpCommand())
                 .tmdCode(partner.getMerchantId())
                 .orderInfo(paymentRequest.getDescription())
-                .ipAddress(paymentRequest.getIpAddress())
+                .orderType("topup")
+                .expireDate(DateTimeUtil.expireTimeInMinutes(15,VNPayConstants.FORMAT_DATE))
+                .ipAddress("127.0.0.1")
                 .createDate(DateTimeUtil.nowToString(VNPayConstants.FORMAT_DATE))
                 .txnRef(paymentRequest.getInvoiceId())
                 .amount(String.valueOf(paymentRequest.getAmount().longValue() * 100))
