@@ -33,14 +33,33 @@ public class Customer {
 	@Column(name = "email")
 	String email;
 
+	@NotEmpty(message = "Vui lòng nhập địa chỉ")
+	@Column(name = "Address")
+	String address;
+
+	@Column(name = "PhoneNumber")
+	String phoneNumber;
+
+
 	@Column(name = "photo")
 	String photo = "user.png";
+
+	public boolean isChangePassword() {
+		return isChangePassword;
+	}
+
+	public void setChangePassword(boolean changePassword) {
+		isChangePassword = changePassword;
+	}
 
 	@Column(name = "activated")
 	boolean activated = false;
 
 	@Column(name = "admin")
 	boolean admin = false;
+
+	@Column(name = "IsChangePassword")
+	boolean isChangePassword = false;
 
 	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
 	List<Order> orders;
@@ -95,6 +114,22 @@ public class Customer {
 
 	public boolean isAdmin() {
 		return admin;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public void setAdmin(boolean admin) {

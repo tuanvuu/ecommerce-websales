@@ -22,14 +22,14 @@
 					data-discount="${p.discount}">
 					<td>${p.id}</td>
 					<td>${p.name}</td>
-					<td>$<f:formatNumber value="${p.unitPrice}" pattern="#,###.00" />
+					<td><f:formatNumber value="${p.unitPrice}" pattern="#,###"/>
 					</td>
 					<td><f:formatNumber value="${p.discount}" type="percent"/></td>
 					<td><input value="${p.quantity}" type="number" min="1"
 						class="txt-cart-quantity" style="width: 100px"></td>
-					<td class="item-amt">$<f:formatNumber
+					<td class="item-amt"><f:formatNumber
 							value="${p.unitPrice*p.quantity*(1-p.discount)}"
-							pattern="#,###.00" />
+							pattern="#,###" />
 					</td>
 					<td>
 						<button class="btn btn-sm btn-danger btn-cart-remove">

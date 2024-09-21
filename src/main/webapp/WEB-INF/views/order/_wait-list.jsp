@@ -12,6 +12,7 @@
 				<th>Ngày đặt hàng</th>
 				<th>Địa chỉ</th>
 				<th>Tổng giá</th>
+				<th>Phương thức thanh toán</th>
 				<th>Trạng thái</th>
 				<th></th>
 			</tr>
@@ -23,8 +24,16 @@
 					<td><f:formatDate value="${o.orderDate}"
 							pattern="hh:mm a, dd-MM-yyyy" /></td>
 					<td>${o.address}</td>
-					<td>$<f:formatNumber value="${o.amount}" pattern="#,###.00" />
+					<td><f:formatNumber value="${o.amount}" pattern="#,###" />
 					</td>
+					<c:choose>
+						<c:when test="${o.partner.code == 'COD'}">
+							<td>Thanh toán khi nhận hàng</td>
+						</c:when>
+						<c:otherwise >
+							<td>Đã thanh toán</td>
+						</c:otherwise>
+					</c:choose>
 					<td style="color: green;"><c:choose>
 							<c:when test="${o.status == 0}">Hoàn tất</c:when>
 							<c:when test="${o.status == 1}">Chờ xác nhận</c:when>

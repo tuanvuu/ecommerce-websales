@@ -19,14 +19,14 @@
 			<tr>
 				<td>${d.id}</td>
 				<td>${d.product.name}</td>
-				<td>$<f:formatNumber value="${d.unitPrice}" pattern="#,###.00" />
+				<td><f:formatNumber value="${d.unitPrice}" pattern="#,###" />
 				</td>
 				<td><f:formatNumber value="${d.discount * 100}"
-						pattern="#,###.00" /> %</td>
+						pattern="#,###" /> %</td>
 				<td>${d.quantity}</td>
-				<td>$<f:formatNumber
+				<td><f:formatNumber
 						value="${d.unitPrice*d.quantity*(1-d.discount)}"
-						pattern="#,###.00" />
+						pattern="#,###" />
 				</td>
 			</tr>
 		</c:forEach>

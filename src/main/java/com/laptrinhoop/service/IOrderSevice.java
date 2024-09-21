@@ -3,6 +3,7 @@ package com.laptrinhoop.service;
 import java.util.List;
 import java.util.Map;
 
+import com.laptrinhoop.entity.Customer;
 import com.laptrinhoop.entity.Order;
 import com.laptrinhoop.entity.Product;
 import com.laptrinhoop.service.impl.CartService;
@@ -13,5 +14,7 @@ public interface IOrderSevice extends IGeneralService<Order, Integer> {
 	List<Order> getAllOrderByUser();
 	Order findById(Integer id);
 	Map<Integer, Product> getPurchasedItems();
+
+	List<Order> findAllByUsernameOrderByIdDesc(Customer user);
 
 }

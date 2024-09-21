@@ -33,7 +33,7 @@
 				<c:forEach items="${c.products}" var="p">
 					<li><a href="/product/detail/${p.id}"> <img
 							src="/static/images/products/${p.image}" />
-							<h4>${p.unitPrice}</h4>
+							<h4><f:formatNumber value="${p.unitPrice}" pattern="#,###" /></h4>
 					</a></li>
 				</c:forEach>
 
