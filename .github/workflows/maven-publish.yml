@@ -11,3 +11,15 @@ jobs:
           github_token: ${{ secrets.SECRET_TOKEN }}
           reporter: github-pr-review
           checkstyle_config: sun_checks.xml
+
+  misspell:
+    name: runner / misspell
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code.
+        uses: actions/checkout@v4
+      - name: misspell
+        uses: reviewdog/action-misspell@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          locale: "US"
