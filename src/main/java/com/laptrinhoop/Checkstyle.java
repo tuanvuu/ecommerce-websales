@@ -19,4 +19,9 @@ public class Checkstyle {
         System.out.println(a);
         return a;
     }
+
+     public String check1() {
+System.out.println(a);
+        return     "";
+    }
 }
