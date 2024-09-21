@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: dbelyaev/action-checkstyle@master
+      - uses: tuanvuu/action-checkstyle@master
         with:
           github_token: ${{ secrets.SECRET_TOKEN }}
           reporter: github-pr-review
